@@ -6,4 +6,150 @@
     android:layout_height="match_parent"
     tools:context=".AddItemActivity">
 
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brown"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/cream"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/productNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/textItemName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <EditText
+        android:id="@+id/productNameEditText"
+        android:layout_width="247dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:hint="@string/editItemName"
+        android:inputType="text"
+        android:textColorHint="#6F7378"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productNameLabel" />
+
+    <TextView
+        android:id="@+id/currentAmountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/textCurAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productNameEditText" />
+
+    <EditText
+        android:id="@+id/currentAmountEditText"
+        android:layout_width="298dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:hint="@string/editLowAmount"
+        android:inputType="numberDecimal"
+        android:textColorHint="#6F7378"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentAmountLabel" />
+
+    <TextView
+        android:id="@+id/minimumAmountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/textLowAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentAmountEditText" />
+
+    <EditText
+        android:id="@+id/minimumAmountEditText"
+        android:layout_width="274dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:hint="@string/editLowAmount"
+        android:inputType="numberDecimal"
+        android:textColorHint="#6F7378"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minimumAmountLabel" />
+
+    <TextView
+        android:id="@+id/nearestExpiryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/textExpirationDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minimumAmountEditText" />
+
+    <EditText
+        android:id="@+id/nearestExpiryEditText"
+        android:layout_width="274dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:hint="@string/editLastBought"
+        android:inputType="text"
+        android:textColorHint="#6F7378"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nearestExpiryLabel" />
+
+    <TextView
+        android:id="@+id/lastAddedDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/textLastBought"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nearestExpiryEditText" />
+
+    <EditText
+        android:id="@+id/lastAddedDateEditText"
+        android:layout_width="288dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:hint="@string/editLastBought"
+        android:inputType="date"
+        android:textColorHint="#6F7378"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastAddedDateLabel" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="82dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button_background"
+        android:contentDescription="@string/returnBttn"
+        android:padding="16dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="82dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button_background"
+        android:contentDescription="@string/saveBttn"
+        android:padding="16dp"
+        android:src="@drawable/save_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/backButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

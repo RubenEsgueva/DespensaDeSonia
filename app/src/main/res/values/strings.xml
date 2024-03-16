@@ -16,4 +16,14 @@
     <string name="spanish">Spanish</string>
     <string name="basque">Basque</string>
     <string name="english">English</string>
+    <string name="saveBttn">Save item</string>
+    <string name="returnBttn">Go back</string>
+    <string name="textLastBought">Date of last purchease</string>
+    <string name="editLastBought" translatable="false">dd-MM-YYYY</string>
+    <string name="textExpirationDate">Nearest expiration date</string>
+    <string name="editLowAmount" translatable="false">N.N</string>
+    <string name="textLowAmount">Lowest amount allowed</string>
+    <string name="textCurAmount">Current amount available</string>
+    <string name="editItemName">Insert item name here…</string>
+    <string name="textItemName">Item name</string>
 </resources>

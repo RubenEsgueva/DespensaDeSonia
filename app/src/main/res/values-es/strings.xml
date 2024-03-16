@@ -16,4 +16,12 @@
     <string name="spanish">Castellano</string>
     <string name="basque">Euskera</string>
     <string name="english">Inglés</string>
+    <string name="saveBttn">Guardar artículo</string>
+    <string name="returnBttn">Volver</string>
+    <string name="textLastBought">Día de la última compra:</string>
+    <string name="textExpirationDate">Fecha de caducidad:</string>
+    <string name="textLowAmount">Cantidad mínima permitida:</string>
+    <string name="textCurAmount">Cantidad actual:</string>
+    <string name="editItemName">Introduzca el nombre del producto…</string>
+    <string name="textItemName">Nombre del producto:</string>
 </resources>

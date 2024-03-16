@@ -16,4 +16,12 @@
     <string name="spanish">Gaztelania</string>
     <string name="basque">Euskera</string>
     <string name="english">Ingelesa</string>
+    <string name="saveBttn">Gorde artikulua</string>
+    <string name="returnBttn">Itzuli</string>
+    <string name="textLastBought">Azken erosketaren eguna:</string>
+    <string name="textExpirationDate">Iraungitze-data:</string>
+    <string name="textLowAmount">Baimendutako gutxieneko kantitatea:</string>
+    <string name="textCurAmount">Egungo kantitatea</string>
+    <string name="editItemName">Sartu produktuaren izena…</string>
+    <string name="textItemName">Artikuluaren izena:</string>
 </resources>
