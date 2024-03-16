@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_email">Erabiltzailea</string>
+    <string name="prompt_password">Pasahitza</string>
+    <string name="action_sign_in">Saioa hasi</string>
+</resources>
