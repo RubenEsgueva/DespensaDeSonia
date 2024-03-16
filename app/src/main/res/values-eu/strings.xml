@@ -3,4 +3,6 @@
     <string name="prompt_email">Erabiltzailea</string>
     <string name="prompt_password">Pasahitza</string>
     <string name="action_sign_in">Saioa hasi</string>
+    <string name="welcome">"Ongi etorri! "</string>
+    <string name="loginFail">Erabiltzaile edo pasahitza okerra</string>
 </resources>

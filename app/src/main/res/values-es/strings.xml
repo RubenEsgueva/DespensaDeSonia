@@ -3,4 +3,6 @@
     <string name="prompt_email">Usuario</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Iniciar sesión</string>
+    <string name="welcome">"Bienvenid@! "</string>
+    <string name="loginFail">Usuario o contraseña erróneos</string>
 </resources>
