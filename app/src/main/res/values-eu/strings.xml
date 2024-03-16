@@ -5,4 +5,15 @@
     <string name="action_sign_in">Saioa hasi</string>
     <string name="welcome">"Ongi etorri! "</string>
     <string name="loginFail">Erabiltzaile edo pasahitza okerra</string>
+    <string name="notifTitle">Saioa hasteko oharra</string>
+    <string name="channelDesc">Saioa egiaztatzeko kanala</string>
+    <string name="notifDesc">"Hurrengo kontuaren saioa da: "</string>
+    <string name="addItem">Gehitu artikulua</string>
+    <string name="calendar">Ezarri abisua</string>
+    <string name="logout">Saioa amaitu</string>
+    <string name="changeLang">Hizkuntza aldatu</string>
+    <string name="selectLang">Aukeratu hizkuntza</string>
+    <string name="spanish">Gaztelania</string>
+    <string name="basque">Euskera</string>
+    <string name="english">Ingelesa</string>
 </resources>

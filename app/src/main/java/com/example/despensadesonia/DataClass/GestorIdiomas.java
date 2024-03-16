@@ -11,7 +11,7 @@ public class GestorIdiomas {
 
     }
     public void cambiarIdioma(Context pcontext, String clave){
-        //EL IDIOMA BASE ES CASTELLANO, MÁS ADELANTE SE PODRÁ CAMBIAR
+        //AJUSTAMOS EL IDIOMA EN FUNCIÓN DE LA CLAVE DADA
         Locale nuevaloc = new Locale(clave);
         Locale.setDefault(nuevaloc);
         Configuration configuration =

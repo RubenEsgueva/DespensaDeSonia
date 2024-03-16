@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra("idioma")) {
             langKey = intent.getStringExtra("idioma");
         }
+        //EN CASO DE RECARGAR LA PÁGINA, HAY QUE AJUSTAR EL IDIOMA ANTES DE FIJAR EL 'LAYOUT'
         GestorIdiomas gi = new GestorIdiomas();
         gi.cambiarIdioma(this, langKey);
 
@@ -44,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
             inputUsr.setText(savedUser);
             inputPass.setText(savedPass);
             langKey = savedLang;
-
         }
 
         loginBttn.setOnClickListener(v -> {
@@ -55,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
                 String welcome = getString(R.string.welcome) + nomUsuario;
                 Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(this, ItemListActivity.class);
+
+                //PASAMOS EL IDIOMA PAR NO PERDERLO, Y EL USUARIO PARA IDENTIFICARLO
+                i.putExtra("idioma", "es");
+                i.putExtra("usuario", nomUsuario);
                 startActivity(i);
             }
             else {
@@ -72,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         // GUARDAMOS EL CONTENIDO DE USUARIO Y CONTRASEÑA PARA NO PERDERLOS AL ROTAR
         outState.putString(KEY_USERNAME_CONTENT, inputUsr.getText().toString());
         outState.putString(KEY_PASSWORD_CONTENT, inputPass.getText().toString());
+        outState.putString(KEY_LANG_CONTENT, langKey);
     }
 
     private boolean comprobarLogin(String usuario, String pass){

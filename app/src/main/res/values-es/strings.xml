@@ -5,4 +5,15 @@
     <string name="action_sign_in">Iniciar sesión</string>
     <string name="welcome">"Bienvenid@! "</string>
     <string name="loginFail">Usuario o contraseña erróneos</string>
+    <string name="notifTitle">Aviso de inicio de sesión</string>
+    <string name="channelDesc">Canal de verificación de sesión</string>
+    <string name="notifDesc">"Sesión actual: "</string>
+    <string name="addItem">Añadir artículo</string>
+    <string name="calendar">Poner recordatorio</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="changeLang">Cambiar idioma</string>
+    <string name="selectLang">Seleccione un idioma</string>
+    <string name="spanish">Castellano</string>
+    <string name="basque">Euskera</string>
+    <string name="english">Inglés</string>
 </resources>

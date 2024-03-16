@@ -5,4 +5,15 @@
     <string name="action_sign_in">Sign in</string>
     <string name="welcome">"Welcome! "</string>
     <string name="loginFail">Username or password were incorrect</string>
+    <string name="notifTitle">Log in notification</string>
+    <string name="channelDesc">Login verification channel</string>
+    <string name="notifDesc">"Logged in currently as: "</string>
+    <string name="addItem">Add item</string>
+    <string name="calendar">Set reminder</string>
+    <string name="logout">Log out</string>
+    <string name="changeLang">Change language</string>
+    <string name="selectLang">Select a language</string>
+    <string name="spanish">Spanish</string>
+    <string name="basque">Basque</string>
+    <string name="english">English</string>
 </resources>
