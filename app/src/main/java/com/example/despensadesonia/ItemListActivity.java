@@ -8,12 +8,15 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -21,8 +24,15 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.example.despensadesonia.DB.DBHelper;
+import com.example.despensadesonia.DataClass.Articulo;
+import com.example.despensadesonia.DataClass.ArticuloAdapter;
 import com.example.despensadesonia.DataClass.GestorIdiomas;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemListActivity extends AppCompatActivity {
     private static final String KEY_LANG_CONTENT = "langContent";
@@ -69,6 +79,38 @@ public class ItemListActivity extends AppCompatActivity {
         }
 
         //CARGAMOS LA LISTA DE ARTÍCULOS ASOCIADOS AL USUARIO
+        this.iniciarLista();
+    }
+
+    private void iniciarLista() {
+        ListView itemList = findViewById(R.id.listView);
+        List<Articulo> listofItems = new ArrayList<>();
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase bd = dbHelper.getWritableDatabase();
+        //VAMOS A OBTENER TODOS LOS PRODUCTOS ASOCIADOS AL USUARIO ACTUAL
+        String[] selecCols = {"id", "propietario", "nombreProducto", "cantAct", "cantMin", "fechaUltCompra", "fechaCaducidadTop"};
+        String selection = "propietario = ?";
+        String[] selectionArgs = {nomUsuario};
+        Cursor cursor = bd.query("t_articulos", selecCols, selection, selectionArgs, null, null, null);
+        if (cursor != null && cursor.moveToFirst()){
+            do {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String propietario = cursor.getString(cursor.getColumnIndex("propietario"));
+                @SuppressLint("Range") String nombreProducto = cursor.getString(cursor.getColumnIndex("nombreProducto"));
+                @SuppressLint("Range") String cantAct = cursor.getString(cursor.getColumnIndex("cantAct"));
+                @SuppressLint("Range") String cantMin = cursor.getString(cursor.getColumnIndex("cantMin"));
+                @SuppressLint("Range") String fechaUltCompra = cursor.getString(cursor.getColumnIndex("fechaUltCompra"));
+                @SuppressLint("Range") String fechaCaducidadTop = cursor.getString(cursor.getColumnIndex("fechaCaducidadTop"));
+                //CREAMOS EL ARTÍCULO CON LOS DATOS OBTENIDOS Y LO AÑADIMOS A LA LISTA
+                Articulo articulo = new Articulo(id, propietario, nombreProducto, cantAct, cantMin, fechaUltCompra, fechaCaducidadTop);
+                listofItems.add(articulo);
+            } while (cursor.moveToNext());
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        ArticuloAdapter listAdapter = new ArticuloAdapter(this, listofItems);
+        itemList.setAdapter(listAdapter);
     }
 
     @Override
@@ -159,17 +201,15 @@ public class ItemListActivity extends AppCompatActivity {
                 .setContentText(getString(R.string.notifDesc)+nomUsuario)
                 .setVibrate(new long[]{0, 1000, 500, 1000})
                 .setAutoCancel(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel elCanal = new NotificationChannel("connected", "connectedUserNotif",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            elCanal.setDescription(getString(R.string.channelDesc));
-            elCanal.enableLights(true);
-            elCanal.setLightColor(Color.RED);
-            elCanal.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-            elCanal.enableVibration(true);
-            elManager.createNotificationChannel(elCanal);
-            elManager.notify(1, elBuilder.build());
-        }
+        NotificationChannel elCanal = new NotificationChannel("connected", "connectedUserNotif",
+                NotificationManager.IMPORTANCE_DEFAULT);
+        elCanal.setDescription(getString(R.string.channelDesc));
+        elCanal.enableLights(true);
+        elCanal.setLightColor(Color.RED);
+        elCanal.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+        elCanal.enableVibration(true);
+        elManager.createNotificationChannel(elCanal);
+        elManager.notify(1, elBuilder.build());
     }
 
 }

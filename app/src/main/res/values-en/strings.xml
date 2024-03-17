@@ -24,4 +24,9 @@
     <string name="textCurAmount">Current amount available:</string>
     <string name="editItemName">Insert item name here…</string>
     <string name="textItemName">Item name:</string>
+    <string name="delete_button_description">Delete item</string>
+    <string name="prodNameReq">A name is required</string>
+    <string name="amountReq">Amount format is 0.00</string>
+    <string name="dateReq">Date format has to be dd-MM-YYYY</string>
+    <string name="saveItemSuccess">Item saved succesfully!</string>
 </resources>

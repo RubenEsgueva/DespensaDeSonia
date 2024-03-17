@@ -24,4 +24,9 @@
     <string name="textCurAmount">Cantidad actual:</string>
     <string name="editItemName">Introduzca el nombre del producto…</string>
     <string name="textItemName">Nombre del producto:</string>
+    <string name="delete_button_description">Borrar artículo</string>
+    <string name="prodNameReq">El nombre del producto es obligatorio</string>
+    <string name="amountReq">El formato de cantidad es 0.00</string>
+    <string name="dateReq">El formato de fecha es dd-MM-YYYY</string>
+    <string name="saveItemSuccess">Se ha guardado el producto!</string>
 </resources>

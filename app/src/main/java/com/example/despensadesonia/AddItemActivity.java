@@ -2,13 +2,21 @@ package com.example.despensadesonia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.despensadesonia.DB.DBHelper;
 import com.example.despensadesonia.DataClass.GestorIdiomas;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddItemActivity extends AppCompatActivity {
     private static final String KEY_LANG_CONTENT = "langContent";
@@ -19,8 +27,6 @@ public class AddItemActivity extends AppCompatActivity {
     private static final String KEY_LASTDATE_CONTENT = "lastdateContent";
     private static final String KEY_EXPIRDATE_CONTENT = "expirdateContent";
     private DBHelper GestorDB;
-    private ImageButton backButton;
-    private ImageButton saveButton;
     private EditText productName;
     private EditText currentAmount;
     private EditText minimumAmount;
@@ -50,14 +56,7 @@ public class AddItemActivity extends AppCompatActivity {
         minimumAmount = findViewById(R.id.minimumAmountEditText);
         nearestExpiry = findViewById(R.id.nearestExpiryEditText);
         lastAddedDate = findViewById(R.id.lastAddedDateEditText);
-        //AL PULSAR EL BOTÓN DE VUELTA SE REGRESA A LA LISTA
-        backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            Intent i = new Intent(this, ItemListActivity.class);
-            i.putExtra("usuario", nomUsuario);
-            i.putExtra("idioma",langKey);
-            startActivity(i);
-        });
+
         //SI SE HABÍA GUARDADO ALGÚN VALOR SE DEVUELVE
         if (savedInstanceState != null) {
             String savedProdName = savedInstanceState.getString(KEY_PRODUCTNAME_CONTENT);
@@ -75,6 +74,69 @@ public class AddItemActivity extends AppCompatActivity {
             nomUsuario = savedUser;
             langKey = savedLang;
         }
+
+        //AL PULSAR EL BOTÓN DE VUELTA SE REGRESA A LA LISTA
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            Intent i = new Intent(this, ItemListActivity.class);
+            i.putExtra("usuario", nomUsuario);
+            i.putExtra("idioma",langKey);
+            startActivity(i);
+        });
+
+        ImageButton saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(v -> {
+            String productNameText = productName.getText().toString().trim();
+            String currentAmountText = currentAmount.getText().toString().trim();
+            String minimumAmountText = minimumAmount.getText().toString().trim();
+            String nearestExpiryText = nearestExpiry.getText().toString().trim();
+            String lastAddedDateText = lastAddedDate.getText().toString().trim();
+
+            if (productNameText.isEmpty()) {
+                Toast.makeText(this, getString(R.string.prodNameReq), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                double currentAmountValue = Double.parseDouble(currentAmountText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, getString(R.string.amountReq), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                double minimumAmountValue = Double.parseDouble(minimumAmountText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, getString(R.string.amountReq), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            try {
+                Date nearestExpiryDate = dateFormat.parse(nearestExpiryText);
+            } catch (ParseException e) {
+                Toast.makeText(this, getString(R.string.dateReq), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                Date lastAddedDate = dateFormat.parse(lastAddedDateText);
+            } catch (ParseException e) {
+                Toast.makeText(this, getString(R.string.dateReq), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            SQLiteDatabase bd = GestorDB.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("propietario", nomUsuario);
+            values.put("nombreProducto", productNameText);
+            values.put("cantAct", currentAmountText);
+            values.put("cantMin", minimumAmountText);
+            values.put("fechaUltCompra", lastAddedDateText);
+            values.put("fechaCaducidadTop", nearestExpiryText);
+            bd.insertOrThrow("t_articulos", null, values);
+            Toast.makeText(this, R.string.saveItemSuccess, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, ItemListActivity.class);
+            i.putExtra("usuario", nomUsuario);
+            i.putExtra("idioma",langKey);
+            startActivity(i);
+        });
     }
 
     @Override

@@ -24,4 +24,9 @@
     <string name="textCurAmount">Egungo kantitatea</string>
     <string name="editItemName">Sartu produktuaren izena…</string>
     <string name="textItemName">Artikuluaren izena:</string>
+    <string name="delete_button_description">Artikulua ezabatu</string>
+    <string name="prodNameReq">Izena derrigorezkoa da</string>
+    <string name="amountReq">Kantitate formatua 0,00 da</string>
+    <string name="dateReq">Dataren formatua dd-MM-YYYY da</string>
+    <string name="saveItemSuccess">Artikulua gorde da!</string>
 </resources>
