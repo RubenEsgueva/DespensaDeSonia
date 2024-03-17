@@ -156,4 +156,12 @@ public class AddItemActivity extends AppCompatActivity {
         outState.putString(KEY_LASTDATE_CONTENT, lastAddedDate.getText().toString());
         outState.putString(KEY_EXPIRDATE_CONTENT, nearestExpiry.getText().toString());
     }
+
+    @Override
+    protected void onDestroy() {
+        //GUARDAMOS LA BASE DE DATOS EN ARCHIVOS DE TEXTO PARA MAYOR SEGURIDAD
+        super.onDestroy();
+        DBHelper dbHelper = new DBHelper(this);
+        dbHelper.saveDataToTextFile(this);
+    }
 }

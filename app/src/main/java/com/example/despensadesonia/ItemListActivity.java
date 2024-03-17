@@ -167,6 +167,14 @@ public class ItemListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        //GUARDAMOS LA BASE DE DATOS EN ARCHIVOS DE TEXTO PARA MAYOR SEGURIDAD
+        super.onDestroy();
+        DBHelper dbHelper = new DBHelper(this);
+        dbHelper.saveDataToTextFile(this);
+    }
+
     private void mostrarDialogCambiarIdioma(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.selectLang));

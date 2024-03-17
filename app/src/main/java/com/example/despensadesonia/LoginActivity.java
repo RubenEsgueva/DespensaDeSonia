@@ -79,6 +79,14 @@ public class LoginActivity extends AppCompatActivity {
         outState.putString(KEY_LANG_CONTENT, langKey);
     }
 
+    @Override
+    protected void onDestroy() {
+        //GUARDAMOS LA BASE DE DATOS EN ARCHIVOS DE TEXTO PARA MAYOR SEGURIDAD
+        super.onDestroy();
+        DBHelper dbHelper = new DBHelper(this);
+        dbHelper.saveDataToTextFile(this);
+    }
+
     private boolean comprobarLogin(String usuario, String pass){
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase dbLogin = dbHelper.getReadableDatabase();
