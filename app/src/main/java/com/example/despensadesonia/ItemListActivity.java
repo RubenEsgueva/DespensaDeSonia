@@ -110,6 +110,14 @@ public class ItemListActivity extends AppCompatActivity {
         }
         ArticuloAdapter listAdapter = new ArticuloAdapter(this, listofItems);
         itemList.setAdapter(listAdapter);
+        itemList.setOnItemClickListener((parent, view, position, id) -> {
+            long idArt = itemList.getItemIdAtPosition(position);
+            Intent i = new Intent(getBaseContext(), AddItemActivity.class);
+            i.putExtra("usuario", nomUsuario);
+            i.putExtra("idioma", langKey);
+            i.putExtra("articulo", idArt);
+            startActivity(i);
+        });
     }
 
     @Override

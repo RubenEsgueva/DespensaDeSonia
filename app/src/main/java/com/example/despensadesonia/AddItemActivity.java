@@ -2,8 +2,10 @@ package com.example.despensadesonia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ public class AddItemActivity extends AppCompatActivity {
     private static final String KEY_MINAMOUNT_CONTENT = "minamountContent";
     private static final String KEY_LASTDATE_CONTENT = "lastdateContent";
     private static final String KEY_EXPIRDATE_CONTENT = "expirdateContent";
+    private long idExiste;
     private DBHelper GestorDB;
     private EditText productName;
     private EditText currentAmount;
@@ -51,6 +54,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_add_item);
         GestorDB = new DBHelper(this);
+        idExiste = -1;
         productName = findViewById(R.id.productNameEditText);
         currentAmount = findViewById(R.id.currentAmountEditText);
         minimumAmount = findViewById(R.id.minimumAmountEditText);
@@ -75,6 +79,27 @@ public class AddItemActivity extends AppCompatActivity {
             langKey = savedLang;
         }
 
+        if (intent != null && intent.hasExtra("articulo")){
+            //COMPROBAMOS SI NOS HAN ENVIADO UN ARTÍCULO PARA PRECARGAR
+            idExiste = intent.getLongExtra("articulo", -1);
+            SQLiteDatabase db = GestorDB.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM t_articulos WHERE id = ?", new String[]{String.valueOf(idExiste)});
+            if (cursor.moveToFirst()) {
+                @SuppressLint("Range") String productNameValue = cursor.getString(cursor.getColumnIndex("nombreProducto"));
+                @SuppressLint("Range") String currentAmountValue = cursor.getString(cursor.getColumnIndex("cantAct"));
+                @SuppressLint("Range") String minimumAmountValue = cursor.getString(cursor.getColumnIndex("cantMin"));
+                @SuppressLint("Range") String lastAddedDateValue = cursor.getString(cursor.getColumnIndex("fechaUltCompra"));
+                @SuppressLint("Range") String nearestExpiryValue = cursor.getString(cursor.getColumnIndex("fechaCaducidadTop"));
+
+                productName.setText(productNameValue);
+                currentAmount.setText(currentAmountValue);
+                minimumAmount.setText(minimumAmountValue);
+                lastAddedDate.setText(lastAddedDateValue);
+                nearestExpiry.setText(nearestExpiryValue);
+            }
+            cursor.close();
+        }
+
         //AL PULSAR EL BOTÓN DE VUELTA SE REGRESA A LA LISTA
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
@@ -93,10 +118,12 @@ public class AddItemActivity extends AppCompatActivity {
             String lastAddedDateText = lastAddedDate.getText().toString().trim();
 
             if (productNameText.isEmpty()) {
+                //EL TÍTULO ES UN CAMPO OBLIGATORIO
                 Toast.makeText(this, getString(R.string.prodNameReq), Toast.LENGTH_SHORT).show();
                 return;
             }
             try {
+                //LAS CANTIDADES DEBEN RESPETAR EL FORMATO
                 double currentAmountValue = Double.parseDouble(currentAmountText);
             } catch (NumberFormatException e) {
                 Toast.makeText(this, getString(R.string.amountReq), Toast.LENGTH_SHORT).show();
@@ -109,6 +136,7 @@ public class AddItemActivity extends AppCompatActivity {
                 return;
             }
 
+            //DEFINIMOS UN FORMATO PARA LAS FECHAS
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             try {
                 Date nearestExpiryDate = dateFormat.parse(nearestExpiryText);
@@ -130,7 +158,13 @@ public class AddItemActivity extends AppCompatActivity {
             values.put("cantMin", minimumAmountText);
             values.put("fechaUltCompra", lastAddedDateText);
             values.put("fechaCaducidadTop", nearestExpiryText);
-            bd.insertOrThrow("t_articulos", null, values);
+            if (idExiste != -1) {
+                //SI EXISTE EL ARTÍCULO LO ACTUALIZAMOS
+                bd.update("t_articulos", values, "id = ?", new String[]{String.valueOf(idExiste)});
+            } else {
+                //SI NO EXISTE CREAMOS UNO NUEVO
+                bd.insertOrThrow("t_articulos", null, values);
+            }
             Toast.makeText(this, R.string.saveItemSuccess, Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, ItemListActivity.class);
             i.putExtra("usuario", nomUsuario);
