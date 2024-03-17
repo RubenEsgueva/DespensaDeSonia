@@ -29,4 +29,5 @@
     <string name="amountReq">Kantitate formatua 0,00 da</string>
     <string name="dateReq">Dataren formatua dd-MM-YYYY da</string>
     <string name="saveItemSuccess">Artikulua gorde da!</string>
+    <string name="app_name">Soniaren Despentsa</string>
 </resources>
